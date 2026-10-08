@@ -1,0 +1,35 @@
+# Task 6: Backup and Restore
+
+## Step 1: Backup company_advanced to an archive using gzip
+
+```
+.\mongodump.exe --db company_advanced --archive=company_advanced.archive --gzip
+```
+
+## Step 2: Verify the archive file was created
+
+```
+dir company_advanced.archive
+```
+
+## Step 3: Restore into a new database (company_advanced_restore)
+
+```
+.\mongorestore.exe --archive=company_advanced.archive --gzip --nsFrom="company_advanced.*" --nsTo="company_advanced_restore.*"
+```
+
+## Step 4: Verify restored collection counts
+
+```
+mongosh
+```
+
+```js
+use company_advanced_restore
+
+show collections
+
+db.employees.countDocuments()
+db.departments.countDocuments()
+db.sessions.countDocuments()
+```
